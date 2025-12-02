@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Доступ к курсу</title>
+</head>
+<body>
+<p>Проверка доступа...</p>
+</body>
+</html>
+<script>
+window.onload = function() {
+    // Ваш домен
+    var allowedRef = "finfreedom.github.io"; // например "myfinancecourse.ru"
+
+    // Ссылка на вашу страницу Telegraph
+    var telegraphURL = "https://telegra.ph/PROSTO-KURS-FINANSOVAYA-SVOBODA-ZA-14-DNEJ-12-02";
+
+    // Получаем реферер
+    var ref = document.referrer;
+
+    // Получаем user-agent
+    var ua = navigator.userAgent || navigator.vendor;
+
+    // Проверяем, открывается ли в Telegram / других приложениях
+    var blockedApp = ua.indexOf("Telegram") !== -1 || ua.indexOf("FBAV") !== -1;
+
+    if(blockedApp){
+        document.body.innerHTML = "<h2>Откройте ссылку в обычном браузере.</h2><p>Пожалуйста, используйте Safari, Chrome или другой браузер.</p>";
+        return;
+    }
+
+    // Проверяем реферер
+    if(ref.indexOf(allowedRef) !== -1 || ref === ""){
+        // Разрешаем редирект
+        window.location.href = telegraphURL;
+    } else {
+        // Блокируем доступ
+        document.body.innerHTML = "<h2>Доступ запрещён.</h2><p>Откройте ссылку через наш сайт.</p>";
+    }
+};
+</script>
